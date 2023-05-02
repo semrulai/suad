@@ -1,0 +1,76 @@
+# =============================================================================
+# -----------------------Leukofit APP-------------------
+#   Beschreibung: Das ist die "Funktionsweise"-Seite
+#   Hier werden die Informationen zu der Funktionsweise der Leukofit APP 
+#   beschrieben 
+#   
+#    Datum: 12.04.2023
+#    Autoren: Gzime Ramadani, Rinesa Shabija, Priya Jose
+# =============================================================================
+
+# Schritt 1: Erstellen der Multipage APP=======================================
+#   Es wird eine Multipage APP erstellt.
+#   Es wird der Seitentitel mir Icon definiert.
+#   Es werden die Bilbiotheken / Packages importiert.
+# =============================================================================
+import streamlit as st
+import json
+import os
+
+st.set_page_config(
+    page_title="JSON-Daten",
+    page_icon="🗃️",
+)
+
+# Titel und Header
+st.title("JSON-Daten")
+st.header("Daten werden aus JSON-Datei gelesen und in folgende Liste angezeigt.. ")
+
+
+
+
+# Schritt 2: Einlesen der JSON-Daten===========================================
+#   Es werden die Daten aus der JSON-Datei eingelesen
+#   Es wird überprüft, ob die JSON-Datei existiert, falls nicht, wird eine
+#   Meldung ausgegeben, dass keine Daten vorhanden sind.
+#   
+#   Es wird ein Button eingefügt, dass die JSON-Datei gelöscht wird, wenn die
+#   JSON-Daten gelöscht werden sollen.
+# =============================================================================
+
+
+# Funktion definieren
+def json_einlesen():
+    
+    # Speicherort der JSON-Datei
+    filename = 'blutkörperchen.json'
+    
+    # Überprüfen, ob JSON-Datei existiert
+    if os.path.exists(filename):
+        
+        # Öffnen der Datei im Lesemodus
+        with open("blutkörperchen.json", "r") as f:
+            data_list = []
+            # Einlesen der Zeilen aus der Datei und Dekodieren des JSON-Formats
+            for line in f:
+                data = json.loads(line)
+                # Hinzufügen des Dictionaries zur Liste
+                data_list.append(data)
+
+        # Schließen der Datei
+        f.close()
+
+        # Ausgabe als Tabelle mit st.table()
+        st.table(data_list)
+        
+        #Button definieren, dass wenn gedrückt wird, die JSON-Datei gelöscht wird
+        if st.button('Daten löschen'):
+         os.remove("blutkörperchen.json")
+         st.experimental_rerun()
+    
+    # Sollte JSON-Datei nicht existieren, wird eine Meldung ausgegeben.
+    else:
+        st.write('Bitte Werte im Daten im Leukofitrechner eingeben')
+
+# Funktion wird aufgerufen
+json_einlesen()

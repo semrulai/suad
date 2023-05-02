@@ -1,0 +1,63 @@
+# =============================================================================
+# -----------------------Leukofit APP-------------------
+#   Beschreibung: Das ist die "Funktionsweise"-Seite
+#   Hier werden die Informationen zu der Funktionsweise der Leukofit APP 
+#   beschrieben 
+#   
+#    Datum: 13.04.2023
+#    Autoren: Gzime Ramadani, Rinesa Shabija, Priya Jose
+# =============================================================================
+
+
+# Schritt 1: Erstellen der Multipage APP=======================================
+#   Es wird eine Multipage APP erstellt.
+#   Es wird der Seitentitel mir Icon definiert.
+#   Es werden die Bilbiotheken / Packages importiert.
+# =============================================================================
+
+import streamlit as st
+import streamlit
+import pandas as pd
+st.set_page_config(
+    page_title="Funktionsweise",
+    page_icon="📘",
+)
+
+
+# Titel und Header
+st.title ("Funktionsweise")
+st.header("Beschreibung")
+
+
+
+# Schritt 2: Text mit Referenztabelle==========================================
+#   Es wird eine Text mit der Funktionsweise sowie eine Tabelle mit den
+#   mit den Referenzwerten eingefügt
+# =============================================================================
+
+# Informationstext
+string = "Dieser Code ist eine Streamlit-App, die die Anzahl der weißen Blutkörperchen berechnet. Die App erstellt sechs Eingabefelder für die verschiedenen Arten von weißen Blutkörperchen (Stabkernige Neutrophile, Segmentkernige Neutrophile, Eosinophile, Basophile, Monozyten und Lymphozyten). Anhand der Referenzwerte und der Eingabewerte berechnet die App das Ergebnis und zeigt es in einem Balkendiagramm an. Das Balkendiagramm zeigt die Referenzwerte und die Benutzereingabe an und färbt die Balken entsprechend ein (Rot = Hoch, Grün = Normal, Gelb = Tief). Zusätzlich wird eine Diagnose erstellt."
+st.markdown(string)
+
+# Header für die Tabelle
+st.header("Referenzwerte")
+
+
+# Daten für die Tabelle
+data = {
+    'Leukozyten': ['Stabkernige Neutrophile', 'Segmenkernige Neutrophile', 'Eosinophile', 'Basophile','Monozyten', 'Lymphozyten'],
+    'Referenzwerte in %': ['1 - 17', '12 - 67', '0.2 - 4', '0 - 1.5','2 - 10', '9 - 33']
+}
+
+# Erstellen des DataFrame
+df = pd.DataFrame(data)
+
+# Spaltenüberschrift fett formatieren
+df = df.style.set_caption("Blutwerte").set_table_styles([{'selector': 'th', 'props': [('font-weight', 'bold')]}])
+
+# Erstellen der Tabelle mit Streamlit
+st.table(df)
+
+# Informationstext
+string2 = "Bei der Eingabe von Werten bzw. beim Drücken auf den Start-Knopf, werden die eingegebenen Werte in die JSON-Datei blutkörperchen.json geschrieben. Auf der Page JSON-Daten werden die Daten aus der JSON-Datei eingelesen und in Tabellenansicht ausgegeben."
+st.markdown(string2)
